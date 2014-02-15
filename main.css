@@ -39,12 +39,32 @@ body {
  */
 
 div.headerBar {
+  padding: 0px;
+  margin: 0px;
+
   background-color: #111;
+  height: 2em;
 }
 
 div.headerBar h1 {
   margin: 0px;
+  padding: 0px;
+  font-size: 2em;
+  float: left;
 }
 
 div.headerBar ul {
+  margin: 0px;
+  padding: 0px;
+
+  list-style: none;
+}
+
+div.headerBar li {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.headerBar li a {
+
 }
