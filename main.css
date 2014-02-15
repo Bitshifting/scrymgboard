@@ -3,6 +3,7 @@ body {
   margin: 0px;
   background-color: #1A1A1A;
   color: #ccc;
+  font-family: 'Goudy Bookletter 1911', serif;
 }
 
 .titlefont {
@@ -14,23 +15,23 @@ body {
 }
 
 .color1 {
- color: #BD63D4;
+ color: #FFC373;
 }
 
 .color2 {
- color: #B53AD4;
+ color: #FFAD40;
 }
 
 .color3 {
-  color: #8805A8;
+  color: #FF9200;
 }
 
 .color4 {
-  color: #6C227E;
+  color: #BF8230;
 }
 
 .color5 {
-  color: #58026D
+  color: #A65F00;
 }
 
 
@@ -43,28 +44,34 @@ div.headerBar {
   margin: 0px;
 
   background-color: #111;
-  height: 2em;
+}
+
+div.headerBar p {
+  display: inline;
+  margin-left: 2em;
+  margin-right: 1em;
 }
 
 div.headerBar h1 {
   margin: 0px;
   padding: 0px;
+  display: inline;
+
   font-size: 2em;
-  float: left;
 }
 
-div.headerBar ul {
-  margin: 0px;
-  padding: 0px;
 
-  list-style: none;
+div.headerBar form {
+  display: inline;
 }
 
-div.headerBar li {
-  margin: 0px;
-  padding: 0px;
+div.headerBar input {
+  display: inline;
 }
 
-div.headerBar li a {
-
+/**
+ * Bootstrap recoloring
+ */
+.btn-scrmyg {
+  color: #ccc;
 }

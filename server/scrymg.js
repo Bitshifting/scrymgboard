@@ -8,7 +8,7 @@ var db = new mongo.Db('scrymgdb', new mongo.Server('localhost', 27017, {}), {saf
 /**
  * Publish story
  */
-app.get('/scrymg/story/publish/:type/:title/:content', function(req, res) {
+app.get('/scrymg/story/publish/:title/:content', function(req, res) {
   res.header("Content-Type", "application/json");
 
   db.open(function() {
@@ -21,6 +21,7 @@ app.get('/scrymg/story/publish/:type/:title/:content', function(req, res) {
 
       console.log("Publishing a new story...\n\tTitle: " + req.params.title + "\n\tType: " + req.params.type + "\n\tContent:\n\t" + req.params.content);
 
+      //TODO: Infer the content type, so the correct player can be generated later.
 
       collection.insert({
         time: Math.round(new Date().getTime() / 1000),

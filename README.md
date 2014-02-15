@@ -6,9 +6,9 @@ A new dimension in content sharing
 
 # Server API
 
-### `/scrymg/story/publish/:type/:title/:content`
+### `/scrymg/story/publish/:title/:content`
 
-Publishes a story, where `type` is one of `{"text", "image", "video", "sound"}` and `content` is of the respective form `{"blah blah blah", "http://example.com/img.jpg", "http://example.com/video.mp4", "http://example.com/sound.mp3"}`
+Publishes a story. The "type" of story (image, text, video, audio, etc.) will be determined by the server and utilized when a collection of stories are returned to the client by letting the client know how to render them. The server guesses the type based on the content field - if it's some kind of URI ending with .jpg, it'll assign it as an image type, etc.
 
 Returns JSON like `{"success":true}`
 
