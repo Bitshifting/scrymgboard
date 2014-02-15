@@ -46,28 +46,28 @@ app.get('/scrymg/story/publish/:title/:content', function(req, res) {
 /**
  * Get stories
  */
-app.get('/scrymg/story/get/:count', function(req, res) {
+app.get('/scrymg/story/get/:count/:since', function(req, res) {
   res.header("Content-Type", "application/json");
 
   db.open(function() {
     db.collection('stories', function(err, collection) {
       if (err) {
-        res.end('[]');
+        res.end('{[]}');
         db.close();
         throw err;
       }
 
-      console.log("Getting the most recent " + req.params.count + " stories...");
+      console.log("Getting the most recent " + req.params.count + " stories since " + req.params.since + "...");
 
       collection.find({}, {}, function (err, cursor) {
         if (err) {
-          res.end('[]');
+          res.end('{[]}');
           db.close();
           throw err;
         }
 
         cursor.toArray(function(err, documents) {
-          res.end(JSON.stringify(documents));
+          res.end('{"stories":' + JSON.stringify(documents) + '}');
           db.close();
         });
       });

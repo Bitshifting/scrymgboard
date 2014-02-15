@@ -12,11 +12,11 @@ Publishes a story. The "type" of story (image, text, video, audio, etc.) will be
 
 Returns JSON like `{"success":true}`
 
-### `/scrymg/story/get/:count`
+### `/scrymg/story/get/:count/:since`
 
-Gets all recent stories.
+Gets up to `count` stories after `since` (Unix time), sorted by time (so closest to now, back until `since`).
 
-Returns JSON like `[{"_id":"1234567890ab", "time":123456789,"user":"Anonymous", "rating":45,"type":"image","title":"test post","content":"http://example.com"},...]`
+Returns JSON like `{"stories":[{"_id":"1234567890ab", "time":123456789,"user":"Anonymous", "rating":45,"type":"image","title":"test post","content":"http://example.com"},...]}`
 
 ### `/scrymg/story/vote/:id/:amount`
 

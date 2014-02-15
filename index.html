@@ -9,8 +9,8 @@
        <link href='http://fonts.googleapis.com/css?family=Ruda|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
         <link href="main.css" rel="stylesheet" type="text/css">
 
-        <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-2.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 
         <title>Scrymg, a new dimension in content sharing</title>
     </head>
@@ -22,9 +22,23 @@
                 <input type="text" class="form-control" placeholder="Content" name="SubmitContent" />
                 <input type="text" class="form-control"  placeholder="Title" name="SubmitTitle" />
             </form>
-            <a href="#" class="btn btn-warning">Post</a>
+            <a href="#" class="btn btn-warning" id="postBtn">Post</a>
         </div>
 
+        <script type="text/javascript">
+            $("#postBtn").click(function() {
+                $.ajax(
+                    {
+                        url: "http://scrymg.com:5555/scrymg/story/get/100",
+                        context: document.body,
 
+                    }
+                ).done(function() {
+                    //Add the new stories to the graph
+                }).error(function() {
+                    alert("ajax error");
+                });;
+            });
+        </script>
     </body>
 </html>
