@@ -1,0 +1,14 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #111;
+  color: #ccc;
+}
+
+.titlefont {
+  font-family: 'Ruda', sans-serif;
+}
+
+.copyfont {
+  font-family: 'Goudy Bookletter 1911', serif;
+}
