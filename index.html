@@ -5,6 +5,7 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/animate.css">
 
        <link href='http://fonts.googleapis.com/css?family=Ruda|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
         <link href="main.css" rel="stylesheet" type="text/css">
@@ -20,13 +21,13 @@
             <p>What's new?</p>
             <form class="form-inline">
                 <input type="text" class="form-control" placeholder="Content" name="SubmitContent" id="submitContent" />
-                <input type="text" class="form-control"  placeholder="Title" name="SubmitTitle" id="submitTitle" />
+                <input type="text" class="form-control" placeholder="Content" name="SubmitTitle" id="submitTitle" />
             </form>
             <a href="#" class="btn btn-warning" id="postBtn">Post</a>
-            <a href="#" class="btn btn-primary" id="refreshBtn">Refresh</a>
         </div>
 
         <script type="text/javascript">
+
             $("#postBtn").click(function() {
                 $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val(),
                           function(data) {
@@ -34,25 +35,44 @@
                           });
             });
 
-            $("#refreshBtn").click(function() {
+
+            /**
+             * Poll the server every second for new content...
+             */
+            var reqTime = 0; //Start asking from time zero
+            (function refreshWorker() {
                 $.ajax({
-                    url: "http://scrymg.com:5555/scrymg/story/get/100/0",
+                    url: "http://scrymg.com:5555/scrymg/story/get/100/" + reqTime,
                     jsonpCallback: "refreshCallback",
                     dataType: "jsonp",
                     success: function(data) {
                         $.each(data, function(i, val) {
                             //Add these to the content graph.
 
-                            alert(data[i].content);
+                            var adjustedRating = Math.max(data[i].rating, 1);
+
+                            $("#storiesContainer").prepend(
+                                '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em;">' + data[i].title + '</p>'
+                            );
+
+                            if (i == 0) {
+                                //Set next request time to the last request we got.
+                                reqTime = data[i].time;
+                                console.log("Req Time is now " + reqTime);
+                            }
                         });
+                    },
+                    complete: function() {
+                        //Only schedule another one if this one has finished...
+                        setTimeout(refreshWorker, 1000);
 
                     }
                 });
-            });
+            })();
 
         </script>
-        <ul id = "whatever">
+        <div id="storiesContainer">
 
-        </ul>
+        </div>
     </body>
 </html>

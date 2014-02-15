@@ -61,7 +61,7 @@ app.get('/scrymg/story/get/:count/:since', function(req, res) {
 
       console.log("Getting the most recent " + req.params.count + " stories since " + req.params.since + "...");
 
-      collection.find({}, {}, function (err, cursor) {
+      collection.find({time : {$gt: parseInt(req.params.since)}}, {}, function (err, cursor) {
         if (err) {
           res.jsonp('[]');
           db.close();

@@ -70,8 +70,13 @@ div.headerBar input {
 }
 
 /**
- * Bootstrap recoloring
+ * Story rendering
  */
-.btn-scrmyg {
-  color: #ccc;
+p.story {
+  margin: 0px;
+  display: inline-block;
+  background-color: #771100;
+  font-family: 'Ruda', sans-serif;
+  width: 10em;
+  height: 10em;
 }
