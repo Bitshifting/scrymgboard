@@ -9,12 +9,12 @@ var db = new mongo.Db('scrymgdb', new mongo.Server('localhost', 27017, {}), {saf
  * Publish story
  */
 app.get('/scrymg/story/publish/:title/:content', function(req, res) {
-  res.header("Content-Type", "application/json");
+//  res.header("Content-Type", "application/json");
 
   db.open(function() {
     db.collection('stories', function(err, collection) {
       if (err) {
-        res.end('{"success":false}');
+        res.jsonp('{"success":false}');
         db.close();
         throw err;
       }
@@ -22,22 +22,24 @@ app.get('/scrymg/story/publish/:title/:content', function(req, res) {
       console.log("Publishing a new story...\n\tTitle: " + req.params.title + "\n\tType: " + req.params.type + "\n\tContent:\n\t" + req.params.content);
 
       //TODO: Infer the content type, so the correct player can be generated later.
+      var inferredType = "text";
 
       collection.insert({
         time: Math.round(new Date().getTime() / 1000),
         user: "Anonymous",
         rating: 0,
-        type: req.params.type,
+        type: inferredType,
         title: req.params.title,
         content: req.params.content
       }, function(err, count) {
         if (err) {
-          res.end('{"success":true}');
+          res.jsonp('{"success":true}');
           db.close();
           throw err;
         }
 
-        res.end('{"success":true}');
+        res.jsonp('{"success":true}');
+        db.close();
       });
     });
   });
@@ -47,12 +49,12 @@ app.get('/scrymg/story/publish/:title/:content', function(req, res) {
  * Get stories
  */
 app.get('/scrymg/story/get/:count/:since', function(req, res) {
-  res.header("Content-Type", "application/json");
+  //res.header("Content-Type", "application/json");
 
   db.open(function() {
     db.collection('stories', function(err, collection) {
       if (err) {
-        res.end('{[]}');
+        res.jsonp('[]');
         db.close();
         throw err;
       }
@@ -61,13 +63,17 @@ app.get('/scrymg/story/get/:count/:since', function(req, res) {
 
       collection.find({}, {}, function (err, cursor) {
         if (err) {
-          res.end('{[]}');
+          res.jsonp('[]');
           db.close();
           throw err;
         }
 
+        var lowestLimit = Math.min(parseInt(req.params.count), 128);
+        cursor.limit(lowestLimit);
+        cursor.sort({time: -1});
+
         cursor.toArray(function(err, documents) {
-          res.end('{"stories":' + JSON.stringify(documents) + '}');
+          res.jsonp(documents);
           db.close();
         });
       });

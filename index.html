@@ -19,26 +19,40 @@
             <h1 class="titlefont"><span class="color2">s</span>crymg</h1>
             <p>What's new?</p>
             <form class="form-inline">
-                <input type="text" class="form-control" placeholder="Content" name="SubmitContent" />
-                <input type="text" class="form-control"  placeholder="Title" name="SubmitTitle" />
+                <input type="text" class="form-control" placeholder="Content" name="SubmitContent" id="submitContent" />
+                <input type="text" class="form-control"  placeholder="Title" name="SubmitTitle" id="submitTitle" />
             </form>
             <a href="#" class="btn btn-warning" id="postBtn">Post</a>
+            <a href="#" class="btn btn-primary" id="refreshBtn">Refresh</a>
         </div>
 
         <script type="text/javascript">
             $("#postBtn").click(function() {
-                $.ajax(
-                    {
-                        url: "http://scrymg.com:5555/scrymg/story/get/100",
-                        context: document.body,
+                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val(),
+                          function(data) {
+                              alert("posted");
+                          });
+            });
+
+            $("#refreshBtn").click(function() {
+                $.ajax({
+                    url: "http://scrymg.com:5555/scrymg/story/get/100/0",
+                    jsonpCallback: "refreshCallback",
+                    dataType: "jsonp",
+                    success: function(data) {
+                        $.each(data, function(i, val) {
+                            //Add these to the content graph.
+
+                            alert(data[i].content);
+                        });
 
                     }
-                ).done(function() {
-                    //Add the new stories to the graph
-                }).error(function() {
-                    alert("ajax error");
-                });;
+                });
             });
+
         </script>
+        <ul id = "whatever">
+
+        </ul>
     </body>
 </html>

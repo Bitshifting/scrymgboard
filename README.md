@@ -14,7 +14,9 @@ Returns JSON like `{"success":true}`
 
 ### `/scrymg/story/get/:count/:since`
 
-Gets up to `count` stories after `since` (Unix time), sorted by time (so closest to now, back until `since`).
+Gets up to `count` stories after `since` (Unix time), sorted by time (so closest to now, back until `since`). Initially, you should call with `0` as the `since` parameter, and then every update keep track of when you last called it and use an updated time to get only newly posted stories.
+
+Will fetch up to 128 stories starting from time now until time `since`.
 
 Returns JSON like `{"stories":[{"_id":"1234567890ab", "time":123456789,"user":"Anonymous", "rating":45,"type":"image","title":"test post","content":"http://example.com"},...]}`
 
