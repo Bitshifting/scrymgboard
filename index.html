@@ -20,8 +20,8 @@
             <h1 class="titlefont"><span class="color2">s</span>crymg</h1>
             <p>What's new?</p>
             <form class="form-inline">
+                <input type="text" class="form-control" placeholder="Title" name="SubmitTitle" id="submitTitle" />
                 <input type="text" class="form-control" placeholder="Content" name="SubmitContent" id="submitContent" />
-                <input type="text" class="form-control" placeholder="Content" name="SubmitTitle" id="submitTitle" />
             </form>
             <a href="#" class="btn btn-warning" id="postBtn">Post</a>
         </div>
@@ -29,7 +29,7 @@
         <script type="text/javascript">
 
             $("#postBtn").click(function() {
-                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val() + "/",
+                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + encodeURIComponent($('#submitTitle').val()) + "/" + encodeURIComponent($('#submitContent').val()) + "/",
                           function(data) {
                               alert("posted");
                           });
@@ -52,13 +52,13 @@
                             var adjustedRating = Math.max(data[i].rating, 1);
 
                             switch (data[i].type) {
-                                case "image":
+                                case "text":
 
                                     $("#storiesContainer").prepend(
                                         '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em;">' + data[i].title + '<br /><span class="copyText">' + data[i].content + '</span></p>'
                                     );
                                     break;
-                                case "text":
+                                case "image":
 
                                     $("#storiesContainer").prepend(
                                         '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em; background-image:url(\'' + data[i].content + '\');">' + data[i].title + '</p>'
