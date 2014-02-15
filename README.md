@@ -6,9 +6,9 @@ A new dimension in content sharing
 
 # Server API
 
-### `/scrymg/item/publish/:image/:title/:content`
+### `/scrymg/item/publish/:type/:title/:content`
 
-Publishes a story.
+Publishes a story, where `type` is one of `{text, image, video, sound}`
 
 Returns JSON like `{"success":true}`
 
