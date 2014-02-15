@@ -11,6 +11,7 @@ var db = new mongo.Db('scrymgdb', new mongo.Server('localhost', 27017, {}), {saf
 app.get('/scrymg/story/publish/:title/:content', function(req, res) {
 //  res.header("Content-Type", "application/json");
 
+
   db.open(function() {
     db.collection('stories', function(err, collection) {
       if (err) {

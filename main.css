@@ -3,7 +3,7 @@ body {
   margin: 0px;
   background-color: #1A1A1A;
   color: #ccc;
-  font-family: 'Goudy Bookletter 1911', serif;
+  font-family: 'Goudy Booklet`ter 1911', serif;
 }
 
 .titlefont {
@@ -75,8 +75,15 @@ div.headerBar input {
 p.story {
   margin: 0px;
   display: inline-block;
-  background-color: #771100;
+
   font-family: 'Ruda', sans-serif;
-  width: 10em;
-  height: 10em;
+  width: 8em;
+  height: 8em;
+  vertical-align: top;
+
+  color: #FFAD40;
+  font-size: 2em;
+
+  background-color: #222;
+  border: 2px solid #FF9200;
 }

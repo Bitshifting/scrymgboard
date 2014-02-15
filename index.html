@@ -29,7 +29,7 @@
         <script type="text/javascript">
 
             $("#postBtn").click(function() {
-                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val(),
+                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val() + "/",
                           function(data) {
                               alert("posted");
                           });
@@ -51,9 +51,20 @@
 
                             var adjustedRating = Math.max(data[i].rating, 1);
 
-                            $("#storiesContainer").prepend(
-                                '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em;">' + data[i].title + '</p>'
-                            );
+                            switch (data[i].type) {
+                                case "image":
+
+                                    $("#storiesContainer").prepend(
+                                        '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em;">' + data[i].title + '<br /><span class="copyText">' + data[i].content + '</span></p>'
+                                    );
+                                    break;
+                                case "text":
+
+                                    $("#storiesContainer").prepend(
+                                        '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em; background-image:url(\'' + data[i].content + '\');">' + data[i].title + '</p>'
+                                    );
+                                    break;
+                            }
 
                             if (i == 0) {
                                 //Set next request time to the last request we got.
