@@ -41,15 +41,33 @@
                 }
 
                 if (rank > 2) {
-                    return "smallStoriesColumn";
+                    switch((~~Math.random() * 2)) {
+                        case 0:
+                            return "smallStoriesColumn1";
+                        case 1:
+                            return "smallStoriesColumn2";
+                    }
                 }
 
-                switch (~~(Math.random() * 2)) {
+                switch (~~(Math.random() * 4)) {
                     case 0:
                         return "tinyStoriesColumn1";
                     case 1:
                         return "tinyStoriesColumn2";
+                    case 2:
+                        return "tinyStoriesColumn3";
+                    case 3:
+                        return "tinyStoriesColumn4";
                 }
+            }
+
+            function getPureCategoryNameForRank(rank) {
+                var t = parseInt(rank);
+
+                if (t >= 10) return 0;
+                if (t > 5) return 1;
+                if (t > 2) return 2;
+                return 3;
             }
 
             /**
@@ -64,6 +82,31 @@
                 $('#submitContent').val('');
             });
 
+            /**
+             * Votes a thing.
+             */
+            function vote(id, direction, current) {
+                $.ajax({
+                    url: "http://scrymg.com:5555/scrymg/story/vote/" + id + "/" + parseInt(direction) + "/",
+                    jsonpCallback: "upvoteCallback",
+                    dataType: "jsonp",
+                    success: function(data) {
+                        //Nothing to do here.
+                    }
+                });
+
+                console.log(parseInt($('#rating-' + id).html()) + direction);
+
+                //Check if the new rating would move the story, and if so, do it.
+                if (getPureCategoryNameForRank(parseInt($('#rating-' + id).html()) + direction) != getPureCategoryNameForRank(parseInt($('#rating-' + id).html()))) {
+                     var target = getCategoryNameForRank(parseInt($('#rating-' + id).html()) + direction);
+                    var el = $('#story-' + id).detach();
+
+                    $('#' + target).prepend(el);
+                    console.log("Moved to " + target);
+                }
+                $('#rating-' + id).html(parseInt($('#rating-' + id).html()) + direction);
+            }
 
             /**
              * Poll the server every second for new content...
@@ -81,7 +124,8 @@
                             var adjustedRating = Math.max(data[i].rating, 1);
                             var containerTarget = getCategoryNameForRank(parseInt(data[i].rating));
 
-                            var markupBuilder = '<p class="story animated bounceIn"';
+
+                            var markupBuilder = '<p id="story-' + data[i]._id + '" class="story animated bounceIn"';
 
                             switch (data[i].type) {
                                 case "text":
@@ -95,9 +139,14 @@
                                         data[i].title + '</span>';
                                     break;
                             }
+                             //Up-down buttons
+                            markupBuilder += '<span style="float:right;"> <a href="#" onclick="vote(\'' + data[i]._id +
+                                '\', 1, ' + data[i].rating + '); return false;" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span><span id="rating-' + data[i]._id + '">' + data[i].rating + '</span></a>';
 
-                            //Up-down buttons
-                            //markupBuilder += '<a href="#" id="upvote-
+                            //Banish
+                            markupBuilder += '<a href="#" onclick="vote(\'' + data[i]._id + '\', -1, ' + data[i].rating + '); return false;" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></a></span>';
+
+
                             markupBuilder += "</p>";
                             $("#" + containerTarget).prepend(markupBuilder);
 
@@ -118,27 +167,32 @@
 
         </script>
 
-        <div id="columnContainer">
-            <div id="storyColumn">
-                <div class="storiesColumnContainer" id="largeStoriesColumnContainer">
-                    <div id="largeStoriesColumn" class="storiesColumn">large</div>
-                </div>
-                <div class="storiesColumnContainer" id="mediumStoriesColumnContainer">
-                    <div id="mediumStoriesColumn" class="storiesColumn">medium</div>
-                </div>
-                <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
-                    <div id="smallStoriesColumn" class="storiesColumn">small</div>
-                </div>
-                <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                    <div id="tinyStoriesColumn1" class="storiesColumn">tiny1</div>
-                </div>
-                <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                    <div id="tinyStoriesColumn2" class="storiesColumn">tiny2</div>
-                </div>
+        <div id="storyColumn">
+            <div class="storiesColumnContainer" id="largeStoriesColumnContainer">
+                <div id="largeStoriesColumn" class="storiesColumn">large</div>
             </div>
-            <div id="threadColumn"> b
+            <div class="storiesColumnContainer" id="mediumStoriesColumnContainer">
+                <div id="mediumStoriesColumn" class="storiesColumn">medium</div>
+            </div>
+            <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
+                <div id="smallStoriesColumn1" class="storiesColumn">small</div>
+            </div>
+            <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
+                <div id="smallStoriesColumn2" class="storiesColumn">small</div>
+            </div>
+            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn1" class="storiesColumn">tiny1</div>
+            </div>
+            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn2" class="storiesColumn">tiny2</div>
+            </div>
+            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn3" class="storiesColumn">tiny1</div>
+            </div>
+            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn4" class="storiesColumn">tiny2</div>
             </div>
         </div>
-
-    </body>
+    </div>
+</body>
 </html>

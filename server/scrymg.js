@@ -53,7 +53,6 @@ app.get('/scrymg/story/publish/:title/:content', function(req, res) {
  * Get stories
  */
 app.get('/scrymg/story/get/:count/:since', function(req, res) {
-
   db.collection('stories', function(err, collection) {
     if (err) {
       res.jsonp('[]');
@@ -79,7 +78,31 @@ app.get('/scrymg/story/get/:count/:since', function(req, res) {
   });
 });
 
+/**
+ * Vote on story
+ */
+app.get('/scrymg/story/vote/:id/:amount', function(req, res) {
+  db.collection('stories', function(err, collection) {
+    if (err) {
+      res.jsonp('{"success":false}');
+      throw err;
+    }
 
+    console.log("Voting story " + req.params.id + " by " + parseInt(req.params.amount));
+
+    collection.update(
+      {_id: new ObjectID(req.params.id)},
+      {$inc : {rating: parseInt(req.params.amount)}},
+      function(err, count) {
+        if (err) {
+          res.jsonp('{"success":false}');
+          throw err;
+        }
+
+        res.jsonp('{"success":true}');
+      });
+  });
+});
 
 
 app.listen(5555);

@@ -99,35 +99,28 @@ p.story {
   overflow: hidden;
 }
 
+p.story a {
+  opacity: 0.0;
+}
+
 p.story:hover {
   height: 8em;
 }
 
+p.story:hover a {
+  opacity: 0.8;
+}
 /**
 * Columns and timelining
 */
-div#columnContainer {
-  min-width: 100%;
-  min-height: 100%;
-}
 
 div#storyColumn {
-  width: 70%;
+  width: 100%;
   height: 100%;
   margin: 0px;
   float: left;
   display: inline-block;
   background-color: #111;
-}
-
-div#threadColumn {
-  width: 30%;
-  height: 100%;
-  margin: 0px;
-  float: right;
-  display: inline-block;
-
-  background-color: blue;
 }
 
 
@@ -156,11 +149,11 @@ div#smallStoriesColumnContainer {
 }
 
 div#mediumStoriesColumnContainer {
-  width: 25%;
+  width: 20%;
 }
 
 div#largeStoriesColumnContainer {
-  width: 30%;
+  width: 25%;
 }
 
 
