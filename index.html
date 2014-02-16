@@ -33,15 +33,15 @@
              */
             function getCategoryNameForRank(rank) {
                 if (rank >= 10) {
-                    return "largeStoriesColumn";
+                    return "largeStoriesColumn1";
                 }
 
                 if (rank > 5) {
-                    return "mediumStoriesColumn";
+                    return "mediumStoriesColumn1";
                 }
 
                 if (rank > 2) {
-                    switch((~~Math.random() * 2)) {
+                    switch(~~(Math.random() * 2)) {
                         case 0:
                             return "smallStoriesColumn1";
                         case 1:
@@ -168,29 +168,29 @@
         </script>
 
         <div id="storyColumn">
-            <div class="storiesColumnContainer" id="largeStoriesColumnContainer">
-                <div id="largeStoriesColumn" class="storiesColumn">large</div>
+            <div class="storiesColumnContainer largeStoriesColumnContainer">
+                <div id="largeStoriesColumn1" class="storiesColumn largeStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="mediumStoriesColumnContainer">
-                <div id="mediumStoriesColumn" class="storiesColumn">medium</div>
+            <div class="storiesColumnContainer mediumStoriesColumnContainer">
+                <div id="mediumStoriesColumn1" class="storiesColumn mediumStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
-                <div id="smallStoriesColumn1" class="storiesColumn">small</div>
+            <div class="storiesColumnContainer smallStoriesColumnContainer">
+                <div id="smallStoriesColumn1" class="storiesColumn smallStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
-                <div id="smallStoriesColumn2" class="storiesColumn">small</div>
+            <div class="storiesColumnContainer smallStoriesColumnContainer">
+                <div id="smallStoriesColumn2" class="storiesColumn smallStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn1" class="storiesColumn">tiny1</div>
+            <div class="storiesColumnContainer tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn1" class="storiesColumn tinyStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn2" class="storiesColumn">tiny2</div>
+            <div class="storiesColumnContainer tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn2" class="storiesColumn tinyStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn3" class="storiesColumn">tiny1</div>
+            <div class="storiesColumnContainer tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn3" class="storiesColumn tinyStoriesColumn"></div>
             </div>
-            <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn4" class="storiesColumn">tiny2</div>
+            <div class="storiesColumnContainer tinyStoriesColumnContainer">
+                <div id="tinyStoriesColumn4" class="storiesColumn tinyStoriesColumn"></div>
             </div>
         </div>
     </div>
