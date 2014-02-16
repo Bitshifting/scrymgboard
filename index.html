@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/animate.css">
 
-       <link href='http://fonts.googleapis.com/css?family=Ruda|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Ruda|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
         <link href="main.css" rel="stylesheet" type="text/css">
 
         <script src="js/jquery-2.1.0.min.js"></script>
@@ -17,7 +18,7 @@
     </head>
     <body>
         <div class="headerBar">
-            <h1 class="titlefont"><span class="color2">s</span>crymg</h1>
+            <h1 class="titleFont"><span class="color2">s</span>crymg</h1>
             <p>What's new?</p>
             <form class="form-inline">
                 <input type="text" class="form-control" placeholder="Title" name="SubmitTitle" id="submitTitle" />
@@ -27,12 +28,35 @@
         </div>
 
         <script type="text/javascript">
+            /**
+             * Maps point toals to the rank in which they should appear.
+             */
+            function getCategoryNameForRank(rank) {
+                if (rank >= 10) {
+                    return "largeStories";
+                }
 
+                if (rank > 5) {
+                    return "mediumStories";
+                }
+
+                if (rank > 2) {
+                    return "smallStories";
+                }
+
+                return "tinyStories";
+            }
+
+            /**
+             * Post some new content.
+             */
             $("#postBtn").click(function() {
                 $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + encodeURIComponent($('#submitTitle').val()) + "/" + encodeURIComponent($('#submitContent').val()) + "/",
                           function(data) {
                               alert("posted");
                           });
+                $('#submitTitle').val('');
+                $('#submitContent').val('');
             });
 
 
@@ -50,21 +74,27 @@
                             //Add these to the content graph.
 
                             var adjustedRating = Math.max(data[i].rating, 1);
+                            var containerTarget = getCategoryNameForRank(parseInt(data[i].rating));
+
+                            var markupBuilder = '<p class="story animated bounceIn"';
 
                             switch (data[i].type) {
                                 case "text":
-
-                                    $("#storiesContainer").prepend(
-                                        '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em;">' + data[i].title + '<br /><span class="copyText">' + data[i].content + '</span></p>'
-                                    );
+                                    markupBuilder += '<span class="hardShadow">' +
+                                        data[i].title + '<br /><span class="copyFont">' +
+                                        data[i].content + '</span></span>';
                                     break;
                                 case "image":
-
-                                    $("#storiesContainer").prepend(
-                                        '<p class="story animated bounceIn" style="text-size:' + adjustedRating + 'em; background-image:url(\'' + data[i].content + '\');">' + data[i].title + '</p>'
-                                    );
+                                    markupBuilder += ' style="background-image:url(\'' +
+                                        data[i].content + '\');"><span class="hardShadow">' +
+                                        data[i].title + '</span>';
                                     break;
                             }
+
+                            //Up-down buttons
+                            //markupBuilder += '<a href="#" id="upvote-
+                            markupBuilder += "</p>";
+                            $("#" + containerTarget).prepend(markupBuilder);
 
                             if (i == 0) {
                                 //Set next request time to the last request we got.
@@ -82,8 +112,28 @@
             })();
 
         </script>
-        <div id="storiesContainer">
+        <div id="largeStories" class="stories">
 
+        </div>
+        <div class="detailsBar">
+        </div>
+
+        <div id="mediumStories" class="stories">
+
+        </div>
+        <div class="detailsBar">
+        </div>
+
+        <div id="smallStories" class="stories">
+
+        </div>
+        <div class="detailsBar">
+        </div>
+
+        <div id="tinyStories" class="stories">
+
+        </div>
+        <div class="detailsBar">
         </div>
     </body>
 </html>

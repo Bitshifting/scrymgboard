@@ -6,12 +6,16 @@ body {
   font-family: 'Goudy Booklet`ter 1911', serif;
 }
 
-.titlefont {
+.titleFont {
   font-family: 'Ruda', sans-serif;
 }
 
-.copyfont {
+.copyFont {
   font-family: 'Goudy Bookletter 1911', serif;
+}
+
+.hardFont {
+  font-family: 'Raleway', sans-serif;
 }
 
 .color1 {
@@ -76,14 +80,54 @@ p.story {
   margin: 0px;
   display: inline-block;
 
-  font-family: 'Ruda', sans-serif;
+  font-family: 'Raleway', sans-serif;
   width: 8em;
   height: 8em;
   vertical-align: top;
 
-  color: #FFAD40;
-  font-size: 2em;
+  color: #ddd;
 
   background-color: #222;
-  border: 2px solid #FF9200;
+  overflow: hidden;
+}
+
+div.stories {
+overflow-x: scroll;
+}
+
+div#tinyStories {
+  font-size: 0.5em;
+}
+
+div#smallStories {
+  font-size: 1em;
+}
+
+div#mediumStories {
+  font-size: 2em;
+}
+
+div#largeStories {
+  font-size: 3em;
+}
+
+p.story:hover {
+  font-size: 4em;
+}
+
+.hardShadow {
+  text-shadow: 1px 1px 2px #222;
+}
+
+
+/**
+ * More info/rank bar
+ */
+div.detailsBar {
+  width: 100%;
+  minimum-height: 128px;
+  background-color: #111;
+  border-top: 2px solid #0A0A0A;
+  border-bottom: 2px solid #0A0A0A;
+
 }
