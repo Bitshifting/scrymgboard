@@ -33,18 +33,23 @@
              */
             function getCategoryNameForRank(rank) {
                 if (rank >= 10) {
-                    return "largeStories";
+                    return "largeStoriesColumn";
                 }
 
                 if (rank > 5) {
-                    return "mediumStories";
+                    return "mediumStoriesColumn";
                 }
 
                 if (rank > 2) {
-                    return "smallStories";
+                    return "smallStoriesColumn";
                 }
 
-                return "tinyStories";
+                switch (~~(Math.random() * 2)) {
+                    case 0:
+                        return "tinyStoriesColumn1";
+                    case 1:
+                        return "tinyStoriesColumn2";
+                }
             }
 
             /**
@@ -112,28 +117,28 @@
             })();
 
         </script>
-        <div id="largeStories" class="stories">
 
-        </div>
-        <div class="detailsBar">
+        <div id="columnContainer">
+            <div id="storyColumn">
+                <div class="storiesColumnContainer" id="largeStoriesColumnContainer">
+                    <div id="largeStoriesColumn" class="storiesColumn">large</div>
+                </div>
+                <div class="storiesColumnContainer" id="mediumStoriesColumnContainer">
+                    <div id="mediumStoriesColumn" class="storiesColumn">medium</div>
+                </div>
+                <div class="storiesColumnContainer" id="smallStoriesColumnContainer">
+                    <div id="smallStoriesColumn" class="storiesColumn">small</div>
+                </div>
+                <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                    <div id="tinyStoriesColumn1" class="storiesColumn">tiny1</div>
+                </div>
+                <div class="storiesColumnContainer" id="tinyStoriesColumnContainer">
+                    <div id="tinyStoriesColumn2" class="storiesColumn">tiny2</div>
+                </div>
+            </div>
+            <div id="threadColumn"> b
+            </div>
         </div>
 
-        <div id="mediumStories" class="stories">
-
-        </div>
-        <div class="detailsBar">
-        </div>
-
-        <div id="smallStories" class="stories">
-
-        </div>
-        <div class="detailsBar">
-        </div>
-
-        <div id="tinyStories" class="stories">
-
-        </div>
-        <div class="detailsBar">
-        </div>
     </body>
 </html>

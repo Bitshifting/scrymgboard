@@ -20,7 +20,7 @@ app.get('/scrymg/story/publish/:title/:content', function(req, res) {
       throw err;
     }
 
-    console.log("Publishing a new story...\n\tTitle: " + req.params.title + "\n\tType: " + req.params.type + "\n\tContent:\n\t" + req.params.content);
+    console.log("Publishing a new story...\n\tTitle: " + req.params.title + "\n\tContent:\n\t" + req.params.content);
 
     //Infer the content type, so the correct player can be generated later.
     var inferredType = "text";

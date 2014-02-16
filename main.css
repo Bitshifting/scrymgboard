@@ -1,9 +1,15 @@
+html {
+  height: 100%;
+  /*overflow: hidden;*/
+}
+
 body {
   padding: 0px;
   margin: 0px;
   background-color: #1A1A1A;
   color: #ccc;
   font-family: 'Goudy Booklet`ter 1911', serif;
+  height: 100%;
 }
 
 .titleFont {
@@ -19,11 +25,11 @@ body {
 }
 
 .color1 {
- color: #FFC373;
+  color: #FFC373;
 }
 
 .color2 {
- color: #FFAD40;
+  color: #FFAD40;
 }
 
 .color3 {
@@ -40,14 +46,17 @@ body {
 
 
 /**
- * Header bar
- */
+* Header bar
+*/
 
 div.headerBar {
   padding: 0px;
   margin: 0px;
-
+  position: fixed;
+  bottom: 0px;
   background-color: #111;
+  width: 100%;
+  text-align: center;
 }
 
 div.headerBar p {
@@ -60,7 +69,6 @@ div.headerBar h1 {
   margin: 0px;
   padding: 0px;
   display: inline;
-
   font-size: 2em;
 }
 
@@ -74,15 +82,15 @@ div.headerBar input {
 }
 
 /**
- * Story rendering
- */
+* Story rendering
+*/
 p.story {
   margin: 0px;
-  display: inline-block;
+  display: block;
 
   font-family: 'Raleway', sans-serif;
   width: 8em;
-  height: 8em;
+  height: 2.5em;
   vertical-align: top;
 
   color: #ddd;
@@ -91,29 +99,91 @@ p.story {
   overflow: hidden;
 }
 
-div.stories {
-overflow-x: scroll;
+p.story:hover {
+  height: 8em;
 }
 
-div#tinyStories {
+/**
+* Columns and timelining
+*/
+div#columnContainer {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+div#storyColumn {
+  width: 70%;
+  height: 100%;
+  margin: 0px;
+  float: left;
+  display: inline-block;
+  background-color: #111;
+}
+
+div#threadColumn {
+  width: 30%;
+  height: 100%;
+  margin: 0px;
+  float: right;
+  display: inline-block;
+
+  background-color: blue;
+}
+
+
+div.storiesColumnContainer {
+  height: 100px;
+  display: table-cell;
+  vertical-align: top;
+  margin: 0px;
+}
+
+div.storiesColumn {
+  width: 100%;
+  display:table-cell;
+  overflow: scroll;
+  height: 100%;
+  padding-right: 15px;
+  vertical-align: top;
+}
+
+div#tinyStoriesColumnContainer {
+  width: 10%;
+}
+
+div#smallStoriesColumnContainer {
+  width: 15%;
+}
+
+div#mediumStoriesColumnContainer {
+  width: 25%;
+}
+
+div#largeStoriesColumnContainer {
+  width: 30%;
+}
+
+
+
+div#tinyStoriesColumn {
+  background-color: yellow;
   font-size: 0.5em;
 }
 
-div#smallStories {
+div#smallStoriesColumn {
   font-size: 1em;
 }
 
-div#mediumStories {
+div#mediumStoriesColumn {
   font-size: 2em;
 }
 
-div#largeStories {
+div#largeStoriesColumn {
+
+  background-color: pink;
   font-size: 3em;
 }
 
-p.story:hover {
-  font-size: 4em;
-}
 
 .hardShadow {
   text-shadow: 1px 1px 2px #222;
@@ -121,8 +191,8 @@ p.story:hover {
 
 
 /**
- * More info/rank bar
- */
+* More info/rank bar
+*/
 div.detailsBar {
   width: 100%;
   minimum-height: 128px;
