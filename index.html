@@ -15,7 +15,7 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/packery.pkgd.min.js"></script>
 
-        <title>scrymg - private imageboards and image macro scrapbooking</title>
+        <title>scrymg - private imageboards and image scrapbooking</title>
     </head>
     <body>
         <div class="headerBar">
@@ -31,9 +31,8 @@
         <script type="text/javascript">
 
             function emsFromRating(rating) {
-                if (rating < 4) return 0.8 + (rating / 4) * .2;
-                if (rating < 20) return rating / 4;
-                return 5;
+                if (rating < 20) return 1 + .3 * (rating / 2);
+                return 4;
             }
 
             /**
@@ -143,7 +142,7 @@
             });
         </script>
 
-        <div id="showLinker" style="background-color:#0A0A0A; height: 100%; width: 100%; display: none;" onclick="$('#showLinker').css('display', 'none'); return false;">
+        <div id="showLinker" style="background-color:#0A0A0A; height: 100%; width: 100%; display: none; position: fixed; top: 0px; left: 0px; z-index: 120;" onclick="$('#showLinker').css('display', 'none'); return false;">
             <input type="text" id="showLinkerText" class="form-control" style="margin-left: 20px; padding: 0px; margin-right: 20px; font-size: 2em; position: relative; top: 50%;" value="?" />
             <a href="#" onclick="$('#showLinker').css('display', 'none'); return false;" class="btn btn-primary" style="margin-left: 20px; margin-right: 20px;">Done</a>
         </div>
