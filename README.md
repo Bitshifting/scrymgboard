@@ -1,7 +1,7 @@
 scrymg
 ======
 
-A new dimension in content sharing
+A new dimension in content sharing. Platform for private imageboards and collaborative digital scrapbooking.
 
 ![Picture link](http://i.imgur.com/FGlK4CA.jpg)
 
