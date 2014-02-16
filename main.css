@@ -87,12 +87,13 @@ div.headerBar input {
 */
 p.story {
   margin: 0px;
-  display: block;
+  display: block-inline;
 
   font-family: 'Raleway', sans-serif;
   width: 8em;
   height: 2.5em;
   vertical-align: top;
+  float: left;
 
   color: #ddd;
 
@@ -117,68 +118,6 @@ p.story:hover {
 p.story:hover a {
   opacity: 0.8;
 }
-/**
-* Columns and timelining
-*/
-
-div#storyColumn {
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  display: inline-block;
-}
-
-
-div.storiesColumnContainer {
-  display: table-cell;
-  vertical-align: top;
-  margin: 0px;
-  overflow: hidden;
-  height: 100%;
-}
-
-div.storiesColumn {
-  width: 100%;
-  display: table-cell;
-  height: 100%;
-  vertical-align: top;
-  background-color: #111;
-  overflow: hidden;
-}
-
-div.tinyStoriesColumnContainer {
-  font-size: .75em;
-}
-
-div.smallStoriesColumnContainer {
-  font-size: 1em;
-}
-
-div.mediumStoriesColumnContainer {
-  font-size: 2em;
-}
-
-div.largeStoriesColumnContainer {
-  font-size: 3em;
-}
-
-
-div.tinyStoriesColumn {
-  width: 8em;
-}
-
-div.smallStoriesColumn {
-  width: 8em;
-}
-
-div.mediumStoriesColumn {
-  width: 8em;
-}
-
-div.largeStoriesColumn {
-  width: 8em;
-}
-
 
 .hardShadow {
   text-shadow: 1px 1px 2px #222;

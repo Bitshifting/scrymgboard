@@ -13,13 +13,14 @@
 
         <script src="js/jquery-2.1.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/packery.pkgd.min.js"></script>
 
-        <title>Scrymg, a new dimension in content sharing</title>
+        <title>scrymg - private imageboards and image macro scrapbooking</title>
     </head>
     <body>
         <div class="headerBar">
             <h1 class="titleFont"><span class="color2">s</span>crymg</h1>
-            <p>What's new?</p>
+            <p>Start collecting.</p>
             <form class="form-inline">
                 <input type="text" class="form-control" placeholder="Title" name="SubmitTitle" id="submitTitle" />
                 <input type="text" class="form-control" placeholder="Content" name="SubmitContent" id="submitContent" />
@@ -28,46 +29,11 @@
         </div>
 
         <script type="text/javascript">
-            /**
-             * Maps point toals to the rank in which they should appear.
-             */
-            function getCategoryNameForRank(rank) {
-                if (rank >= 10) {
-                    return "largeStoriesColumn1";
-                }
 
-                if (rank > 5) {
-                    return "mediumStoriesColumn1";
-                }
-
-                if (rank > 2) {
-                    switch(~~(Math.random() * 2)) {
-                        case 0:
-                            return "smallStoriesColumn1";
-                        case 1:
-                            return "smallStoriesColumn2";
-                    }
-                }
-
-                switch (~~(Math.random() * 4)) {
-                    case 0:
-                        return "tinyStoriesColumn1";
-                    case 1:
-                        return "tinyStoriesColumn2";
-                    case 2:
-                        return "tinyStoriesColumn3";
-                    case 3:
-                        return "tinyStoriesColumn4";
-                }
-            }
-
-            function getPureCategoryNameForRank(rank) {
-                var t = parseInt(rank);
-
-                if (t >= 10) return 0;
-                if (t > 5) return 1;
-                if (t > 2) return 2;
-                return 3;
+            function emsFromRating(rating) {
+                if (rating < 4) return 0.8 + (rating / 4) * .2;
+                if (rating < 20) return rating / 4;
+                return 5;
             }
 
             /**
@@ -96,16 +62,14 @@
                 });
 
                 console.log(parseInt($('#rating-' + id).html()) + direction);
-
-                //Check if the new rating would move the story, and if so, do it.
-                if (getPureCategoryNameForRank(parseInt($('#rating-' + id).html()) + direction) != getPureCategoryNameForRank(parseInt($('#rating-' + id).html()))) {
-                     var target = getCategoryNameForRank(parseInt($('#rating-' + id).html()) + direction);
-                    var el = $('#story-' + id).detach();
-
-                    $('#' + target).prepend(el);
-                    console.log("Moved to " + target);
-                }
                 $('#rating-' + id).html(parseInt($('#rating-' + id).html()) + direction);
+                $('#story-' + id).css('font-size', emsFromRating(parseInt($('#rating-' + id).html()) + direction) + "em");
+            }
+
+            function showLink(str) {
+                $("#showLinker").css('display', 'block');
+                $("#showLinkerText").val(str);
+                $("#showLinkerText").select();
             }
 
             /**
@@ -122,20 +86,20 @@
                             //Add these to the content graph.
 
                             var adjustedRating = Math.max(data[i].rating, 1);
-                            var containerTarget = getCategoryNameForRank(parseInt(data[i].rating));
+                            var containerTarget = "storyColumn";
 
 
                             var markupBuilder = '<p id="story-' + data[i]._id + '" class="story animated bounceIn"';
 
                             switch (data[i].type) {
                                 case "text":
-                                    markupBuilder += '<span class="hardShadow">' +
+                                    markupBuilder += ' style="font-size: ' + emsFromRating(data[i].rating) + 'em;"><span class="hardShadow">' +
                                         data[i].title + '<br /><span class="copyFont">' +
                                         data[i].content + '</span></span>';
                                     break;
                                 case "image":
                                     markupBuilder += ' style="background-image:url(\'' +
-                                        data[i].content + '\');"><span class="hardShadow">' +
+                                        data[i].content + '\'); font-size: ' + emsFromRating(data[i].rating) + 'em;"><span class="hardShadow">' +
                                         data[i].title + '</span>';
                                     break;
                             }
@@ -144,7 +108,13 @@
                                 '\', 1, ' + data[i].rating + '); return false;" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span><span id="rating-' + data[i]._id + '">' + data[i].rating + '</span></a>';
 
                             //Banish
-                            markupBuilder += '<a href="#" onclick="vote(\'' + data[i]._id + '\', -1, ' + data[i].rating + '); return false;" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></a></span>';
+                            markupBuilder += '<a href="#" onclick="vote(\'' + data[i]._id + '\', -1, ' + data[i].rating + '); return false;" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus"></span></a>';
+
+                            //link
+                            markupBuilder += '<a href="#" onclick="showLink(\'' + data[i].content + '\'); return false;" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-link"></span></a>';
+
+
+                            markupBuilder += '</span>';
 
 
                             markupBuilder += "</p>";
@@ -165,33 +135,21 @@
                 });
             })();
 
+            var container = document.querySelector('#storyColumn');
+            var pckry = new Packery( container, {
+                // options
+                itemSelector: '.story',
+                gutter: 10
+            });
         </script>
 
+        <div id="showLinker" style="background-color:#0A0A0A; height: 100%; width: 100%; display: none;" onclick="$('#showLinker').css('display', 'none'); return false;">
+            <input type="text" id="showLinkerText" class="form-control" style="margin-left: 20px; padding: 0px; margin-right: 20px; font-size: 2em; position: relative; top: 50%;" value="?" />
+            <a href="#" onclick="$('#showLinker').css('display', 'none'); return false;" class="btn btn-primary" style="margin-left: 20px; margin-right: 20px;">Done</a>
+        </div>
+
         <div id="storyColumn">
-            <div class="storiesColumnContainer largeStoriesColumnContainer">
-                <div id="largeStoriesColumn1" class="storiesColumn largeStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer mediumStoriesColumnContainer">
-                <div id="mediumStoriesColumn1" class="storiesColumn mediumStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer smallStoriesColumnContainer">
-                <div id="smallStoriesColumn1" class="storiesColumn smallStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer smallStoriesColumnContainer">
-                <div id="smallStoriesColumn2" class="storiesColumn smallStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn1" class="storiesColumn tinyStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn2" class="storiesColumn tinyStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn3" class="storiesColumn tinyStoriesColumn"></div>
-            </div>
-            <div class="storiesColumnContainer tinyStoriesColumnContainer">
-                <div id="tinyStoriesColumn4" class="storiesColumn tinyStoriesColumn"></div>
-            </div>
+
         </div>
     </div>
 </body>

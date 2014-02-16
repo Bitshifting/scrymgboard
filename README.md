@@ -20,7 +20,7 @@ Gets up to `count` stories after `since` (Unix time), sorted by time descending.
 
 Will fetch up to 128 stories starting from time now until time `since`.
 
-Returns JSON like `{"stories":[{"_id":"1234567890ab", "time":123456789,"user":"Anonymous", "rating":45,"type":"image","title":"test post","content":"http://example.com"},...]}`
+Returns JSON like `[{"_id":"1234567890ab", "time":123456789,"user":"Anonymous", "rating":45,"type":"image","title":"test post","content":"http://example.com"},...]`
 
 ### `/scrymg/story/vote/:id/:amount`
 
