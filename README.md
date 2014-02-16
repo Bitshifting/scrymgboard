@@ -3,7 +3,7 @@ scrymg
 
 A new dimension in content sharing
 
-![http://i.imgur.com/cWLM3ma.png](http://i.imgur.com/cWLM3ma.png)
+![Picture link](http://i.imgur.com/FGlK4CA.jpg)
 
 # Server API
 
