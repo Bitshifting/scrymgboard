@@ -39,10 +39,14 @@
              * Post some new content.
              */
             $("#postBtn").click(function() {
-                $.getJSON("http://scrymg.com:5555/scrymg/story/publish/" + encodeURIComponent($('#submitTitle').val()) + "/" + encodeURIComponent($('#submitContent').val()) + "/",
-                          function(data) {
-                              alert("posted");
-                          });
+		$.ajax({
+			url: "http://scrymg.com:5555/scrymg/story/publish/" + $('#submitTitle').val() + "/" + $('#submitContent').val(),
+			jsonpCallback: "publishCallback",
+			dataType: "jsonp",
+			success: function(data) {
+			}
+		});
+
                 $('#submitTitle').val('');
                 $('#submitContent').val('');
             });
